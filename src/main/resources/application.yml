@@ -1,0 +1,34 @@
+file:
+  base:
+    path: "E:"        #基本目录父目录
+    folder: images    #基本目录
+    regex: ".+(.JPEG|.jpeg|.JPG|.jpg)"
+    log:
+      folder: D:\logs
+spring:
+  servlet:
+    multipart:
+      max-request-size: 20MB
+      max-file-size: 20MB
+  datasource:
+    url: jdbc:h2:tcp://localhost/e:/softjre/h2db2;database_to_upper=false
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: false
+    show-sql: false
+#    hibernate:
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 9999
+  servlet:
+    context-path: /fs
