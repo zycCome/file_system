@@ -11,26 +11,35 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 
-@Table(name="tb_system_user")
-@Entity()
-//@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
+/**
+ * 留言板
+ */
+@Table(name="tb_guestbook")
+@Entity
 @GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator" )
 @Data
-public class SystemUser {
+public class Guestbook {
 
     @Id
     @GeneratedValue(generator = "jpa-uuid")
     private String id;
 
-    @NotBlank(message = "用户名不能为空")
-    @Column(unique = true,updatable = false)
-    private String username;
+    private String name;
 
-    @NotBlank(message = "密码不能为空")
-    private String password;
+    private String phone;
+
+    private Integer open = 1;//是否公开，0表示不公开，1表示公开。提交者确定
+
+    private Integer status;//留言状态。0表示未处理，1表示已处理但不展示，2表示已处理并展示
+
+    private String regionName;//机构名称。后台会根据region字段查询
+
+    private String reply;//回复
+
+    private String updateUser;//回复的管理员用户名
+
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp()
@@ -43,20 +52,15 @@ public class SystemUser {
     @UpdateTimestamp
     private Date updateTime;
 
-    private Boolean enable = true;
-
-    @NotBlank(message = "角色不能为空")
-    private String role;//只有两种角色，SUPERADMIN和USER
+    private String content;//留言内容
 
 
-    @ElementCollection(fetch=FetchType.EAGER, //加载策略,延迟加载
-            targetClass=String.class) //指定集合中元素的类型
-    @CollectionTable(name="tb_authorized_directory")
-    @OrderColumn(name="order_num")
-    private List<String> authorizedDirectory = new ArrayList<>();
+    @NotBlank(message = "所属区域不能为空")
+    private String region;//机构的code
+
+    private Integer del = 0;//1表示删除
 
 
-    private String regionId;//用户管理的区域（只能有一个）
 
 
 }

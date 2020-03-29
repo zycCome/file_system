@@ -12,4 +12,6 @@ public interface SystemUserRepository extends JpaRepository<SystemUser,String>, 
     SystemUser findByUsername(String username);
 
     Page<SystemUser> findByUsernameContaining(String username,Pageable page);
+
+    int countByRegionId(String regionid);
 }

@@ -15,4 +15,8 @@ public class TreeNode {
     private boolean  expand = true;
 
     private List<TreeNode> children;
+
+    private String id;
+
+    private String code;
 }

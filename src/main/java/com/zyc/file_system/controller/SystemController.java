@@ -37,14 +37,7 @@ public class SystemController {
     @PostMapping("")
     @RolesAllowed("SUPERADMIN")
     public WebResult save(@Valid @RequestBody SystemUser systemUser, BindingResult bindingResult){
-        //获取校验错误信息
-        if(bindingResult.hasErrors()) {
-            // 输出错误信息
-            List<FieldError> allErrors = bindingResult.getFieldErrors();
-            for (FieldError objectError : allErrors) {
-                return WebResult.fail(objectError.getDefaultMessage());
-            }
-        }
+
         if(!systemUser.getRole().equals("USER") && !systemUser.getRole().equals("SUPERADMIN"))
             return WebResult.fail("角色名非法");
 
@@ -64,7 +57,6 @@ public class SystemController {
     /**
      * 超级管理员修改用户
      * @param systemUser
-     * @param bindingResult
      * @return
      */
     @PutMapping("")
@@ -96,11 +88,7 @@ public class SystemController {
         Sort sort = Sort.by(Sort.Direction.DESC,"createTime"); //创建时间降序排序
         Pageable pageable = PageRequest.of(page,size,sort);
         Page<SystemUser> page_system = systemUserService.findByUsernameContaining(username,pageable);
-        if(!page_system.isEmpty()){
-            for (SystemUser systemUser : page_system.getContent()) {
-                systemUser.setPassword("");//置空
-            }
-        }
+
         return WebResult.success(page_system);
     }
 
@@ -122,6 +110,8 @@ public class SystemController {
         return WebResult.success();
 
     }
+
+
 
 
 

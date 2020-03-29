@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -46,8 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/login/logout").permitAll()//注销成功跳转接口
                     .and()
                 .authorizeRequests()//配置权限
-//                    .antMatchers("/systemUser").permitAll()
-                    .anyRequest().authenticated()//任意请求需要登录
+                    .antMatchers(HttpMethod.POST,"/guestbook").permitAll()
+                    .antMatchers("/guestbook/open/page").permitAll()
+                .anyRequest().authenticated()//任意请求需要登录
                     .and()
                 .csrf().disable();           //禁用csrf
     }

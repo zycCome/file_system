@@ -33,6 +33,6 @@ public class MyUserDetailService implements UserDetailsService {
 
         authorities.add(new SimpleGrantedAuthority("ROLE_"+systemUser.getRole()));
         //User是系统自带的UserDetails实现类，4个状态其中一个为false就会抛异常
-        return new CustomUser(username, systemUser.getPassword(), systemUser.getEnable(), true, true, true, authorities);
+        return new CustomUser(username, systemUser.getPassword(), systemUser.getEnable(), true, true, true, authorities,systemUser.getRegionId());
     }
 }

@@ -71,10 +71,10 @@ public class MyLogAspect {
      *
      * @param ret
      */
-    @AfterReturning(returning = "ret", pointcut = "pointCut()")
-    public void doAfterReturning(Object ret) {
-        //System.out.println("方法的返回值 : " + ret);
-    }
+//    @AfterReturning(returning = "ret", pointcut = "pointCut()")
+//    public void doAfterReturning(Object ret) {
+//        //System.out.println("方法的返回值 : " + ret);
+//    }
 
     /**
      * 环绕通知，相当于MethodInterceptor

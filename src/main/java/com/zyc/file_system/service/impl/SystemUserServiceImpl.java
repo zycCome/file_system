@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +22,9 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Autowired
     private SystemUserRepository systemUserRepository;
+
+    @Autowired
+    private EntityManager entityManager;
 
     @Override
     @Transactional(readOnly = true)
@@ -64,6 +68,13 @@ public class SystemUserServiceImpl implements SystemUserService {
     @Override
     public Page<SystemUser> findByUsernameContaining(String username,Pageable page) {
         Page<SystemUser> page_system= systemUserRepository.findByUsernameContaining(username,page);
+        entityManager.clear();
+        if(!page_system.isEmpty()){
+            for (SystemUser systemUser : page_system.getContent()) {
+                systemUser.setPassword("");
+            }
+        }
+
         return page_system;
     }
 
