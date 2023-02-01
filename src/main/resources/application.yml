@@ -11,16 +11,16 @@ spring:
       max-request-size: 20MB
       max-file-size: 20MB
   datasource:
-    url: jdbc:h2:tcp://localhost/e:/softjre/h2db2;database_to_upper=false
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://zhuyc.top:13306/file?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&nullCatalogMeansCurrent=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     properties:
       hibernate:
         hbm2ddl:
           auto: update
-        dialect: org.hibernate.dialect.H2Dialect
+#        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: false
     show-sql: true
     open-in-view: false
